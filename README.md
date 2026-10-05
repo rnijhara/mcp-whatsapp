@@ -53,9 +53,12 @@ Scan the QR code with WhatsApp on your phone (*Settings → Linked Devices → L
 
 **Alternative (headless / CI):** `./bin/whatsapp-mcp login` renders the QR in the terminal. Use this when a browser isn't available.
 
+**Pairing without a QR scan:** the `/pair` page also offers a phone-number form (and `login -phone +<international number>` works headlessly). Enter your number, then type the displayed code into WhatsApp via *Settings → Linked Devices → Link a Device → Link with phone number instead*. Code requests are CSRF-protected and rate-limited (3/min, burst 1).
+
 ### Connect your MCP client
 
-`whatsapp-mcp serve` is an HTTP daemon on `127.0.0.1:8765` (or `$WHATSAPP_MCP_ADDR`). MCP clients connect to it over HTTP:
+`whatsapp-mcp serve` is an HTTP daemon on `127.0.0.1:8765` (or `$WHATSAPP_MCP_ADDR`).
+ MCP clients connect to it over HTTP:
 
 Claude Desktop's `claude_desktop_config.json` doesn't support a bare `url`/`type: http` entry the way Claude Code and Cursor do — it only launches stdio servers via `command`/`args`. Bridge it with [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) instead:
 
